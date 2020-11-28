@@ -20,7 +20,7 @@ double nDimBall(int dim, int r)
 
 int main()
 {
-    //cout << mt19937_64::max()<< endl;
+    cout << mt19937_64::max()<< endl;
     int ntry, dim, r;
     double V, ncount = 0.0;
     cout << "Input values shall be positive integers \n"
