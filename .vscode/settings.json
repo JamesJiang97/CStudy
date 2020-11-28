@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "pi.C": "cpp",
+        "iostream": "cpp",
+        "iomanip": "cpp",
+        "cstdio": "cpp"
+    }
+}
