@@ -7,33 +7,96 @@ typedef struct BSTNode *BST;
 struct BSTNode
 {
     int Data;
-    BST Lift = NULL;
-    BST Right = NULL;
+    BST Lift;
+    BST Right;
 };
+
+void addBSTNode(int d, BST Top);
 
 BST createBST(int n)
 {
     BST T = (BST)malloc(sizeof(struct BSTNode));
-    BST tmp = T;
     int d;
-    cin >> d;
     for (int i = 0; i < n; i++)
     {
-
-        tmp->Data = d;
         cin >> d;
-        if (d > tmp->Data)
+        addBSTNode(d, T);
+    }
+    return T;
+}
+
+void addBSTNode(int d, BST Top)
+{
+    if (Top->Data == 0)
+    {
+        Top->Data = d;
+        return;
+    }
+    else
+    {
+        if (d > Top->Data)
         {
-            BST tmp1 = (BST)malloc(sizeof(struct BSTNode));
-            tmp->Right = tmp1;
-            tmp = tmp->Right;
+            if (!Top->Right)
+            {
+                BST T = (BST)malloc(sizeof(struct BSTNode));
+                Top->Right = T;
+            }
+            addBSTNode(d, Top->Right);
         }
         else
         {
-            BST tmp1 = (BST)malloc(sizeof(struct BSTNode));
-            tmp->Lift = tmp1;
-            tmp = tmp->Lift;
+            if (!Top->Lift)
+            {
+                BST T = (BST)malloc(sizeof(struct BSTNode));
+                Top->Lift = T;
+            }
+            addBSTNode(d, Top->Lift);
         }
     }
-    return T;
+}
+
+int isSameBST(BST T, BST cT)
+{
+    if (!T && !cT)
+    {
+        return 1;
+    }
+    if (T && !cT || !T && cT)
+    {
+        return 0;
+    }
+    if (T->Data != cT->Data)
+    {
+        return 0;
+    }
+    else
+    {
+        return (isSameBST(T->Lift, cT->Lift) && isSameBST(T->Right, cT->Right));
+    }
+}
+
+int main()
+{
+    while (1)
+    {
+        int N, L;
+        cin >> N >> L;
+        if (N == 0)
+        {
+            break;
+        }
+        BST T = createBST(N);
+        while (L--)
+        {
+            BST cT = createBST(N);
+            if (isSameBST(T, cT))
+            {
+                cout << "Yes" << endl;
+            }
+            else
+            {
+                cout << "No" << endl;
+            }
+        }
+    }
 }
