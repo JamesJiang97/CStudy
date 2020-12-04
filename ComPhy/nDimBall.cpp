@@ -7,15 +7,13 @@ using namespace std;
 
 mt19937_64 g(time(0));
 
-double nDimBall(int dim, int r)
+double nDimBall(int dim)
 {
     double axis[dim], rp = 0;
-    axis[0] = r * (g() / (mt19937_64::max() + 0.0));
-    rp = axis[0];
-    for (int i = 1; i < dim; i++)
+    for (int i = 0; i < dim; i++)
     {
-        axis[i] = r * (g() / (mt19937_64::max() + 0.0));
-        rp = sqrt(rp*rp + axis[i] * axis[i]);
+        axis[i] = (g() / (mt19937_64::max() + 0.0));
+        rp += axis[i] * axis[i];
     }
     return rp;
 }
@@ -36,12 +34,12 @@ int main()
     int m = pow(r, dim);
     for (int i = 1; i <= ntry; i++)
     {
-        double rp = nDimBall(dim, r);
-        if (rp <= r)
+        double rp = nDimBall(dim);
+        if (rp <= 1)
         {
             ncount += 1.0;
         }
-        V = (ncount / i) * m * p;
+        V = (ncount / i) * p * m;
         cout << i << " " << V << endl;
     }
 }
