@@ -21,8 +21,8 @@ double nDimBall(int dim)
 int main()
 {
     //cout << mt19937_64::max()<< endl;
-    int ntry, dim, r;
-    double V, ncount = 0.0;
+    int ntry, dim;
+    double V, r, ncount = 0.0;
     cout << "Input values shall be positive integers \n"
          << "dimension = " << endl;
     cin >> dim;
@@ -31,7 +31,7 @@ int main()
     cout << "ntry = " << endl;
     cin >> ntry;
     int p = pow(2, dim);
-    int m = pow(r, dim);
+    double m = pow(r, dim);
     for (int i = 1; i <= ntry; i++)
     {
         double rp = nDimBall(dim);
