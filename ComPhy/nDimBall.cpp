@@ -10,10 +10,12 @@ mt19937_64 g(time(0));
 double nDimBall(int dim, int r)
 {
     double axis[dim], rp = 0;
-    for (int i = 0; i < dim; i++)
+    axis[0] = r * (g() / (mt19937_64::max() + 0.0));
+    rp = axis[0];
+    for (int i = 1; i < dim; i++)
     {
         axis[i] = r * (g() / (mt19937_64::max() + 0.0));
-        rp += axis[i] * axis[i];
+        rp = sqrt(rp*rp + axis[i] * axis[i]);
     }
     return rp;
 }
@@ -31,6 +33,7 @@ int main()
     cout << "ntry = " << endl;
     cin >> ntry;
     int p = pow(2, dim);
+    int m = pow(r, dim);
     for (int i = 1; i <= ntry; i++)
     {
         double rp = nDimBall(dim, r);
@@ -38,7 +41,7 @@ int main()
         {
             ncount += 1.0;
         }
-        V = (ncount / i) * p;
+        V = (ncount / i) * m * p;
         cout << i << " " << V << endl;
     }
 }
