@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <cmath>
 #include <random>
+#include "nDimBallAna.cpp"
+
 
 using namespace std;
 
