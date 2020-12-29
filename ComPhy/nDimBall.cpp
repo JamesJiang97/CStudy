@@ -2,8 +2,7 @@
 #include <cstdio>
 #include <cmath>
 #include <random>
-#include "nDimBallAna.cpp"
-
+#include <fstream>
 
 using namespace std;
 
@@ -20,11 +19,20 @@ double nDimBall(int dim)
     return rp;
 }
 
+double nDBA(double dim, double r)
+{
+    double fDim = dim / 2 + 1;
+    double ga = tgamma(fDim);
+    double pi = M_PI;
+    double V = (pow(pi, dim / 2) / ga) * pow(r, dim);
+    return V;
+}
+
 int main()
 {
     //cout << mt19937_64::max()<< endl;
     int ntry, dim;
-    double V, r, ncount = 0.0;
+    double A, Alog, V, Vp = 0, r, ncount = 0.0;
     cout << "Input values shall be positive integers \n"
          << "dimension = " << endl;
     cin >> dim;
@@ -34,14 +42,22 @@ int main()
     cin >> ntry;
     int p = pow(2, dim);
     double m = pow(r, dim);
+    ofstream asf("A.dat");
+    ofstream alsf("Alog.dat");
+    double Va = nDBA(dim, r);
     for (int i = 1; i <= ntry; i++)
     {
         double rp = nDimBall(dim);
-        if (rp <= 1)
-        {
-            ncount += 1.0;
-        }
+        if (rp <= 1) ncount += 1.0;
         V = (ncount / i) * p * m;
-        cout << i << " " << V << endl;
+        A = fabs((V - Va) / Va);
+        Alog = log(fabs((V - Va) / Va));
+        if (i >= 100000)
+        {
+            asf << i << " " << A << endl;
+            alsf << i << " " << Alog << endl;
+        }
     }
+    cout << "数値解：" << V << endl;
+    cout << "解析解：" << Va << endl;
 }
