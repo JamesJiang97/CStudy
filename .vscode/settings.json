@@ -3,6 +3,7 @@
         "pi.C": "cpp",
         "iostream": "cpp",
         "iomanip": "cpp",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "cmath": "cpp"
     }
 }
